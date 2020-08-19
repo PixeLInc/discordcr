@@ -306,12 +306,13 @@ module Discord
     # For more details on the format of the `embed` object, look at the
     # [relevant documentation](https://discord.com/developers/docs/resources/channel#embed-object).
     def create_message(channel_id : UInt64 | Snowflake, content : String, embed : Embed? = nil, tts : Bool = false,
-                       nonce : Int64 | String? = nil)
+                       nonce : Int64 | String? = nil, allowed_mentions : Hash(String, Array(String | Snowflake)) = {} of String => Array(String | Snowflake))
       json = encode_tuple(
         content: content,
         embed: embed,
         tts: tts,
-        nonce: nonce
+        nonce: nonce,
+        allowed_mentions: allowed_mentions
       )
 
       response = request(
